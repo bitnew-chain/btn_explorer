@@ -60,3 +60,4 @@ typings/
 
 .vscode
 .idea
+packages/explorer/
