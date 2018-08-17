@@ -1,0 +1,33 @@
+{
+  "name": "btn-lib",
+  "version": "0.0.1",
+  "description": "A pure and powerful JavaScript BTN library",
+  "main": "index.js",
+  "keywords": [
+    "btn",
+    "transaction",
+    "address",
+    "p2p",
+    "ecies",
+    "cryptocurrency",
+    "blockchain",
+    "payment",
+    "bip21",
+    "bip32",
+    "bip37",
+    "bip69",
+    "bip70",
+    "multisig"
+  ],
+  "repository": "https://github.com/bitnew-chain/btn_explorer/tree/master/packages/btn-lib",
+  "author": "BTN <foundation@btn.org>",
+  "license": "MIT",
+  "dependencies": {
+    "bn.js": "^4.11.8",
+    "bs58": "^4.0.1",
+    "elliptic": "^6.4.0",
+    "ethjs-abi": "^0.2.1",
+    "lodash": "^4.17.5",
+    "btn-opcodes": "^0.0.1"
+  }
+}
