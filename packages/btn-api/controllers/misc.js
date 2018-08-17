@@ -31,7 +31,7 @@ class MiscController {
         ctx.body = {type: 'block'}
         return
       }
-    } else if ([34, 42, 62].includes(id.length)) {
+    } else if ([33, 34, 42, 62].includes(id.length)) {
       try {
         this._toHexAddress(id)
         ctx.body = {type: 'address'}
@@ -75,7 +75,7 @@ class MiscController {
 
   _toHexAddress(address) {
     let network = Networks.get(this._network)
-    if (address.length === 34) {
+    if (address.length === 33 || address.length === 34) {
       let hexAddress = Base58Check.decode(address)
       if (hexAddress[0] === network.pubkeyhash) {
         return {type: 'pubkeyhash', hex: hexAddress.slice(1).toString('hex')}
