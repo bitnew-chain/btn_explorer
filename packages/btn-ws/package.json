@@ -1,0 +1,29 @@
+{
+  "name": "btn-ws",
+  "version": "0.0.1",
+  "description": "A BTN blockchain REST and websocket API service for BTN Node",
+  "main": "index.js",
+  "btnNode": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitnew-chain/btn_explorer/tree/master/packages/btn-ws.git"
+  },
+  "keywords": [
+    "btn",
+    "btn explorer"
+  ],
+  "author": "BTN <foundation@btn.org>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/bitnew-chain/btn_explorer/issues"
+  },
+  "homepage": "https://github.com/bitnew-chain/btn_explorer#readme",
+  "dependencies": {
+    "btn-lib": "^0.0.1",
+    "btn-node": "^0.0.1",
+    "ws": "^4.0.0"
+  }
+}
