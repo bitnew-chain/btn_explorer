@@ -1,0 +1,13 @@
+{
+  "name": "btn-rpc",
+  "version": "0.0.1",
+  "description": "BTN Client Library to connect to BTN Core via RPC",
+  "main": "index.js",
+  "keywords": [
+    "btn",
+    "rpc"
+  ],
+  "repository": "https://github.com/bitnew-chain/btn_explorer/tree/master/packages/btn-rpc.git",
+  "author": "BTN <foundation@btn.org>",
+  "license": "MIT"
+}
