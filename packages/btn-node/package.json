@@ -1,0 +1,45 @@
+{
+  "name": "btn-node",
+  "version": "0.0.1",
+  "description": "Full node with extended capabilities using Btncore",
+  "main": "index.js",
+  "bin": {
+    "btn-node": "./bin/btn-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitnew-chain/btn_explorer/tree/master/packages/btn-node.git"
+  },
+  "keywords": [
+    "btn",
+    "btn explorer"
+  ],
+  "author": "BTN <foundation@btn.org>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/bitnew-chain/btn_explorer/issues"
+  },
+  "homepage": "https://github.com/bitnew-chain/btn_explorer/#readme",
+  "dependencies": {
+    "colors": "^1.2.1",
+    "commander": "^2.15.0",
+    "cron": "^1.3.0",
+    "errno": "^0.1.7",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-mount": "^3.0.0",
+    "liftoff": "^2.3.0",
+    "lru-cache": "^4.1.2",
+    "mkdirp": "^0.5.1",
+    "mongoose": "^5.0.9",
+    "mongoose-long": "^0.2.0",
+    "btn-lib": "^0.0.1",
+    "btn-p2p": "^0.0.1",
+    "btn-rpc": "^0.0.1",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
+  }
+}

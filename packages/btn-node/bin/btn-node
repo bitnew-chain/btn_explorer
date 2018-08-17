@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const btn = require('../lib/cli/btn')
+
+process.on('unhandledRejection', reason => console.error(reason))
+
+btn()
