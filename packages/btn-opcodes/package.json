@@ -1,0 +1,23 @@
+{
+  "name": "btn-opcodes",
+  "version": "0.0.1",
+  "description": "The BTN opcodes map",
+  "main": "./index.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bitnew-chain/btn_explorer.git"
+  },
+  "keywords": [
+    "btn",
+    "opcodes"
+  ],
+  "author": "BTN <foundation@btn.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitnew-chain/btn_explorer/issues"
+  },
+  "homepage": "https://github.com/bitnew-chain/btn_explorer#readme"
+}

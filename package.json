@@ -1,0 +1,28 @@
+{
+  "name": "btn_explorer",
+  "private": true,
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "lerna": "lerna bootstrap",
+    "btn-node": "node packages/btn-node/bin/btn-node"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitnew-chain/btn_explorer.git"
+  },
+  "keywords": [
+    "btn",
+    "btn explorer"
+  ],
+  "author": "BTN <foundation@btn.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bitnew-chain/btn_explorer/issues"
+  },
+  "homepage": "https://github.com/bitnew-chain/btn_explorer#readme",
+  "devDependencies": {
+    "lerna": "^2.5.1"
+  }
+}
