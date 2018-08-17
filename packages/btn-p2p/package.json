@@ -1,0 +1,17 @@
+{
+  "name": "btn-p2p",
+  "version": "0.0.1",
+  "description": "Interface to the btn P2P network for btn",
+  "main": "index.js",
+  "keywords": [
+    "btn"
+  ],
+  "repository": "https://github.com/bitnew-chain/btn_explorer/tree/master/packages/btn-p2p.git",
+  "author": "BTN <foundation@btn.org>",
+  "license": "MIT",
+  "dependencies": {
+    "bloom-filter": "^0.2.0",
+    "btn-lib": "^0.0.1",
+    "socks5-client": "^1.2.5"
+  }
+}
