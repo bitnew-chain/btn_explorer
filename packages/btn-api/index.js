@@ -122,6 +122,7 @@ class BtnAPI extends BaseService {
     router.get('/search/:id', misc.classify.bind(misc))
     router.get('/misc/rich-list', misc.richList.bind(misc))
     router.get('/misc/biggest-miners', misc.biggestMiners.bind(misc))
+    router.get('/misc/description', misc.getBtnDescription.bind(misc))
 
     let blocks = this.blockController
     router.get('/blocks', this.cacheShort(), blocks.list.bind(blocks))

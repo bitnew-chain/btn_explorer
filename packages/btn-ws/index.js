@@ -7,6 +7,7 @@ class BtnWS extends BaseService {
   constructor(options) {
     super(options)
     this._options = options
+    this._client = this.node.getRpcClient()
   }
 
   static get dependencies() {
@@ -78,6 +79,7 @@ class BtnWS extends BaseService {
 
   async blockEventHandler(block) {
     let transformedBlock = await this.transformBlock(block)
+    let btnDescription = await this.getBtnDescription(block)
     for (let client of this._server.clients) {
       if (client.subscriptions.has('height')) {
         client.send(JSON.stringify({
@@ -89,6 +91,12 @@ class BtnWS extends BaseService {
         client.send(JSON.stringify({
           type: 'block',
           data: transformedBlock
+        }))
+      }
+      if (client.subscriptions.has('description')) {
+        client.send(JSON.stringify({
+          type: 'description',
+          data: btnDescription
         }))
       }
     }
@@ -160,7 +168,27 @@ class BtnWS extends BaseService {
     }
     return {reward, minedBy, duration}
   }
-
+  async getBtnDescription(block) {
+    try {
+      let info = await this._client.getInfo();
+      // btn产量
+      let totalAmount = info.moneysupply;
+      // 区块高度
+      let curHeight = block.height;
+      // 全网难度
+      let difficulty = this._getDifficulty(block.bits);
+      // 实时算力
+      let workWeight = await this._getWorkWeight(curHeight);
+      return {
+        height: curHeight,
+        totalAmount,
+        difficulty,
+        workWeight,
+      };
+    } catch (error) {
+      return null;
+    }
+  }
   _getTargetDifficulty(bits) {
     let target = new BN(bits & 0xffffff)
     let mov = ((bits >>> 24) - 3) << 3
@@ -177,6 +205,21 @@ class BtnWS extends BaseService {
     let decimalPos = difficultyString.length - 8
     difficultyString = difficultyString.slice(0, decimalPos) + '.' + difficultyString.slice(decimalPos)
     return Number.parseFloat(difficultyString)
+  }
+
+  async _getWorkWeight(curHeight) {
+    let dStakeKernelsTriedAvg = 0
+    let workWeight = 0
+    for (let i = 0; i < 72; i++) {
+      let block = await this.node.getBlock(curHeight - i)
+      dStakeKernelsTriedAvg += this._getDifficulty(block.bits) * 4294967296.0
+      let pindexTime = block.timestamp
+      let blockPre = await this.node.getBlock(curHeight - i - 1)
+      workWeight += pindexTime - blockPre.timestamp
+    }
+    // 实时算力
+    workWeight = dStakeKernelsTriedAvg / workWeight * 16 / 100000000
+    return workWeight;
   }
 }
 
