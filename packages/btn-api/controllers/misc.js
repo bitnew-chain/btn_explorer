@@ -32,6 +32,13 @@ class MiscController {
       let totalAmount = info.moneysupply;
       // 区块高度
       let curHeight = info.blocks;
+      let tip = await this.node.getServiceTip('block');
+      if (tip.height === 0) {
+        throw new Error("block height is 0, please sync first.")
+      }
+      if (tip.height < curHeight) {
+        curHeight = tip.height;
+      }
       // 全网难度
       let difficulty = info.difficulty['proof-of-stake'];
       console.log('proof-of-stake', difficulty)
