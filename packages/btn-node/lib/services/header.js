@@ -196,17 +196,27 @@ class HeaderService extends BaseService {
     this._lastHeaderCount = headers.length
     this.node.log.debug('Header Service: Received:', headers.length, 'header(s).')
     let transformedHeaders = this._transformHeaders(headers)
-    for (let header of transformedHeaders) {
-      assert(
-        this._lastHeader.hash === header.prevHash,
-        `headers not in order: ${this._lastHeader.hash} -and- ${header.prevHash}, `
-          + `Last header at height: ${this._lastHeader.height}`
-      )
-      this._onHeader(header)
+    try {
+      for (let header of transformedHeaders) {
+        assert(
+          this._lastHeader.hash === header.prevHash,
+          `headers not in order: ${this._lastHeader.hash} -and- ${header.prevHash}, `
+            + `Last header at height: ${this._lastHeader.height}`
+        )
+        this._onHeader(header)
+      }
+      await Header.insertMany(transformedHeaders)
+      await this.node.updateServiceTip(this.name, this._tip)
+      await this._onHeadersSave()
+    } catch (error) {
+      this.node.log.error('Header Service: _onHeaders function:', error);
+      let transformedLength = transformedHeaders.length;
+      let firstHash = transformedHeaders[0].hash;
+      let lastHash = transformedHeaders[transformedLength - 1].hash;
+      this.node.log.info(`Header Service: Received:${transformedLength} header(s)`);
+      this.node.log.info(`firstHash:${firstHash}`);
+      this.node.log.info(`lastHash:${lastHash}`);
     }
-    await Header.insertMany(transformedHeaders)
-    await this.node.updateServiceTip(this.name, this._tip)
-    await this._onHeadersSave()
   }
 
   _handleError(err) {
