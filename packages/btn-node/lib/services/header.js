@@ -193,6 +193,7 @@ class HeaderService extends BaseService {
     if (headers.length === 0) {
       this._onHeadersSave().catch(err => this._handleError(err))
     }
+    const lastSyncedHeight = this._lastHeader.height;
     this._lastHeaderCount = headers.length
     this.node.log.debug('Header Service: Received:', headers.length, 'header(s).')
     let transformedHeaders = this._transformHeaders(headers)
@@ -212,10 +213,15 @@ class HeaderService extends BaseService {
       this.node.log.error('Header Service: _onHeaders function:', error);
       let transformedLength = transformedHeaders.length;
       let firstHash = transformedHeaders[0].hash;
+      let firstPreHash = transformedHeaders[0].prevHash;
       let lastHash = transformedHeaders[transformedLength - 1].hash;
+      let lastPreHash = transformedHeaders[transformedLength - 1].prevHash;
       this.node.log.info(`Header Service: Received:${transformedLength} header(s)`);
-      this.node.log.info(`firstHash:${firstHash}`);
-      this.node.log.info(`lastHash:${lastHash}`);
+      this.node.log.info(`firstHash:${firstHash},firstPreHash:${firstPreHash}`);
+      this.node.log.info(`lastHash:${lastHash},lastPreHash:${lastPreHash}`);
+      this.node.log.info(`resetLastHeader at height:${lastSyncedHeight} and restart sync`);
+      this._resetLastHeader(lastSyncedHeight);
+      this._sync();
     }
   }
 
@@ -463,6 +469,12 @@ class HeaderService extends BaseService {
     this.node.log.info('Getting last header synced at height:', this._tip.height)
     await Header.remove({height: {$gt: this._tip.height}})
     this._lastHeader = await Header.findOne({height: this._tip.height})
+    this._tip.hash = this._lastHeader.hash
+    this._tip.height = this._lastHeader.height
+  }
+
+  async _resetLastHeader(height) {
+    this._lastHeader = await Header.findOne({height})
     this._tip.hash = this._lastHeader.hash
     this._tip.height = this._lastHeader.height
   }

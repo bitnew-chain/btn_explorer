@@ -200,8 +200,11 @@ class P2P extends BaseService {
 
   _onPeerDisconnect(peer, addr) {
     this._removePeer(peer)
+    this.node.log.info(`Disconnected from peer: this._peers.length=${this._peers.length}`)
     if (this._peers.length === 0) {
       this._setRetryInterval()
+    } else {
+      this.node.log.info(`this._peers:${JSON.stringify(this._peers)}`);
     }
     this.node.log.info('Disconnected from peer:', addr.ip.v4)
   }
